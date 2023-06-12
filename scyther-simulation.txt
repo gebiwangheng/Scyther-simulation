@@ -1,0 +1,141 @@
+hashfunction h;
+const xor:Function;
+const con:Function;
+const T:Function;
+
+usertype String;
+usertype Timestamp;
+const Rid: String;
+const Sid: String;
+
+secret T1;
+secret T2;
+secret T3;
+secret T4;
+
+secret R1;
+secret R2;
+secret R3;
+
+secret K1;
+
+secret id;
+secret Ku;
+secret Kgs;
+
+
+macro A1 =
+macro A2 = 
+macro A3 = 
+macro A4 = 
+macro A5 = 
+
+macro A6 = 
+macro A7 = 
+macro A8 = 
+macro A9 = 
+
+macro A10 = 
+macro A11 = 
+macro A12 = 
+
+macro A13 = 
+macro A14 = 
+
+protocol AKA(User,Gwn,Sn)
+{
+	role User
+	{
+		secret T1;
+		secret T2;
+		secret T3;
+		secret T4;
+
+		secret R1;
+		secret R2;
+		secret R3;
+
+		secret K1;
+
+		secret id;
+		secret Ku;
+		secret Kgs;
+
+
+
+		send_1(User,Gwn,A2,A3,A4,A5,Rid,T1);
+		recv_4(Gwn,User,A13,A14,T4);
+
+		claim(User,Secret,id);
+		claim(User,Secret,R1);
+		claim(User,Secret,K1);
+		claim(User,Secret,h(con(T(R1,A10),A1,A10)));
+		claim(User,Niagree);
+		claim(User,Nisynch);
+		claim(User,Alive);
+		claim(User,Weakagree);
+	}
+
+	role Gwn
+	{
+		secret T1;
+		secret T2;
+		secret T3;
+		secret T4;
+
+		secret R1;
+		secret R2;
+		secret R3;
+
+		secret K1;
+
+		secret id;
+		secret Ku;
+		secret Kgs;
+
+		recv_1(User,Gwn,A2,A3,A4,A5,Rid,T1);
+		
+		send_2(Gwn,Sn,A6,A7,A8,A9,T2);
+
+		recv_3(Sn,Gwn,A11,A12,T3);
+		
+		send_4(Gwn,User,A13,A14,T4);
+
+		claim(Gwn,Niagree);
+		claim(Gwn,Nisynch);
+		claim(Gwn,Alive);
+		claim(Gwn,Weakagree);
+	}
+
+	role Sn
+	{
+
+	
+		secret T1;
+		secret T2;
+		secret T3;
+		secret T4;
+
+		secret R1;
+		secret R2;
+		secret R3;
+
+		secret K1;
+
+		secret id;
+		secret Ku;
+		secret Kgs;
+
+		recv_2(Gwn,Sn,A6,A7,A8,A9,T2);
+		send_3(Sn,Gwn,A11,A12,T3);
+
+		claim(Sn,Secret,R3);
+		claim(Sn,Secret,h(con(T(R3,A1),A1,A10)));
+		claim(Sn,Niagree);
+		claim(Sn,Nisynch);
+		claim(Sn,Alive);
+		claim(Sn,Weakagree);
+	}
+}
+
+
